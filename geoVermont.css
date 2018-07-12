@@ -248,6 +248,9 @@ pre {
 
 }
 
+#map > div.leaflet-control-container > div.leaflet-top.leaflet-left > div {
+    visibility: hidden;
+}
 
 
 
