@@ -26,6 +26,7 @@ function initialize() {
     mymap.dragging.disable();
     mymap.zoomControl.disable();
 }
+// Code below is for 'easy mode'
 // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibG9yZWFuZGVyIiwiYSI6ImNqamV5aHI1cDRzYXkza29nZWYybW4xYXQifQ.klGOVR3KOTtMXsr5bDGorA'
 // , {
 //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -52,6 +53,28 @@ function startGame(){
 function quitGame(){
     initialize();
     marker.remove();
+    getCounty();
+}
+
+function displayInfo(mapInfo) {
+    document.getElementById('latValue').textContent = latitude
+    document.getElementById('lonValue').textContent = longitude
+    document.getElementById('countyValue').textContent = mapInfo.address.county
+    document.getElementById('townValue').textContent = mapInfo.address.town
+}
+
+function getCounty() {
+    console.log('https://nominatim.openstreetmaps.org/reverse/?format=json&lat=' + latitude + '&lon=' + longitude)
+    fetch('https://nominatim.openstreetmaps.org/reverse/?format=json&lat=' + latitude + '&lon=' + longitude)
+       .then(function (response) {
+        console.log(response);
+           return response.json();
+       })
+       .then(function (mapInfo) {
+        console.log(mapInfo);
+           displayInfo(mapInfo)
+       })
+
 }
 
 function getLatLon(){
