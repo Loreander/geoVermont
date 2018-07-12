@@ -207,18 +207,15 @@ button {
 }
 
 #map {
+    position: relative;
     grid-area: map;
+    height: auto;
+    width: auto;
 }
 
 #sidebarCounties {
     display: grid;
     grid-area: sidebar;
-}
-
-
-#map {
-    height: auto;
-    width: auto;
 }
 
 .infoGrid {
@@ -230,6 +227,39 @@ button {
     margin: auto;
 }
 
+.updownarrows {
+    z-index: 1000;
+    width: 50%;
+    height: 15%;
+    left: 25%;
+    position: absolute;
+}
+
+#downArrow {
+    bottom: -5%;
+}
+
+#upArrow {
+    top: -5%;
+}
+
+#rightArrow {
+    right: -5%;
+}
+
+
+#leftArrow {
+    left: -5%;
+}
+
+.leftrightarrows {
+    z-index: 1000;
+    width: 15%;
+    height: 50%;
+    top: 25%;
+    position: absolute;
+}
+
 p {
     font-style: 80px;
     text-align: right;
@@ -238,6 +268,7 @@ p {
 img {
     height: 100%;
     width: 100%;
+    opacity: .9;
 }
 
 pre {

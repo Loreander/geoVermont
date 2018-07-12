@@ -6,14 +6,16 @@ const latMin = 42.739;
 const latMax = 45.0065;
 const lonMin = -71.5489;
 const lonMax = -73.3654;
-var mymap = L.map('map').setView([43.873, -72.45715], 8);
+var mymap = L.map('map')
 let vermontBorder = L.geoJson(border_data);
 let marker
+let score = 20;
+document.getElementById('score').textContent = score;
 
 initialize();
 
 function initialize() {
-    mymap.setView([43.873, -72.45715], 8);
+    mymap.setView([43.873, -72.45715], 9);
     vermontBorder.addTo(mymap)
     document.getElementById('start').disabled=false;
     document.getElementById('guess').disabled=true;
@@ -25,6 +27,8 @@ function initialize() {
     mymap.keyboard.disable();
     mymap.dragging.disable();
     mymap.zoomControl.disable();
+    $('.leaflet-control-attribution').hide()
+    $('img').hide();
 }
 // Code below is for 'easy mode'
 // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibG9yZWFuZGVyIiwiYSI6ImNqamV5aHI1cDRzYXkza29nZWYybW4xYXQifQ.klGOVR3KOTtMXsr5bDGorA'
@@ -40,13 +44,11 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/
 }).addTo(mymap);
 
 
-
-
-
 function startGame(){
     document.getElementById('start').disabled=true;
     document.getElementById('guess').disabled=false;
     document.getElementById('quit').disabled=false;
+    $('img').show();
     getLatLon()
 }
 
@@ -74,7 +76,6 @@ function getCounty() {
         console.log(mapInfo);
            displayInfo(mapInfo)
        })
-
 }
 
 function getLatLon(){
@@ -87,7 +88,8 @@ function getLatLon(){
     if(results.length === 0){
         getLatLon()
     } else {
-    setMap() 
+    setMap()
+    placemarker()
     }  
 }
 
@@ -98,9 +100,42 @@ function getRandomNum(min, max) {
 function setMap(){
     vermontBorder.remove();
     mymap.setView([latitude,longitude],15);
+}
+
+function placemarker() {
     marker = L.marker([latitude,longitude]).addTo(mymap).bindPopup("Which County Am I In?").openPopup();
 }
 
+function decreaseScore(){
+    score -= 1;
+    setScore();
+}
 
+function setScore() {
+    document.getElementById("score").textContent = score;
+}
 
+function moveRight(){
+    decreaseScore();
+    longitude += .04;
+    setMap();
+}
+
+function moveLeft() {
+    decreaseScore();
+    longitude -= .04;
+    setMap()
+}
+
+function moveDown() {
+    decreaseScore();
+    latitude -= .024;
+    setMap()
+}
+
+function moveUp() {
+    decreaseScore();
+    latitude += .024;
+    setMap()
+}
 

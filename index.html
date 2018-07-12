@@ -43,7 +43,12 @@
                 <button id="quit" class="btn btn-primary" onclick="quitGame()">I Give Up!</button>
             </div>
             <div id="map">
+                <img onclick="moveDown()" class="updownarrows centered" id="downArrow" src="downArrow.png">
+                <img onclick="moveUp()" class="updownarrows" id="upArrow" src="upArrow.png">
+                <img onclick="moveLeft()" class="leftrightarrows" id="leftArrow" src="leftArrow.png">
+                <img onclick="moveRight()" class="leftrightarrows" id="rightArrow" src="rightArrow.png">
             </div>
+
             <!-- <div id="sidebarCounties">
                 <img src="./countiesMap.jpg" >
             </div> -->
@@ -75,9 +80,9 @@
                 <pre></pre>
             </div>
         </div>
-        <div id="score">
+        <div>
             <p>Score:</p>
-            <pre></pre>
+            <pre id="score"></pre>
         </div>
 
     </body>
