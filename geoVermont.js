@@ -2,21 +2,23 @@
 
 let latitude;
 let longitude;
+let marker
+let score;
 const latMin = 42.739;
 const latMax = 45.0065;
 const lonMin = -71.5489;
 const lonMax = -73.3654;
 var mymap = L.map('map')
 let vermontBorder = L.geoJson(border_data);
-let marker
-let score = 20;
+
 document.getElementById('score').textContent = score;
 
 initialize();
 
 function initialize() {
-    mymap.setView([43.873, -72.45715], 9);
+    mymap.setView([43.873, -72.45715], 8);
     vermontBorder.addTo(mymap)
+    score = 20;
     document.getElementById('start').disabled=false;
     document.getElementById('guess').disabled=true;
     document.getElementById('quit').disabled=true;
@@ -27,7 +29,7 @@ function initialize() {
     mymap.keyboard.disable();
     mymap.dragging.disable();
     mymap.zoomControl.disable();
-    $('.leaflet-control-attribution').hide()
+    // $('.leaflet-control-attribution').hide()
     $('img').hide();
 }
 // Code below is for 'easy mode'
