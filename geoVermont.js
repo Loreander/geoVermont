@@ -144,3 +144,19 @@ function moveUp() {
     setMap()
 }
 
+// var countyArray = [
+//     "Addison",
+//     "Bennington",
+//     "Caledonia",
+//     "Chittenden",
+//     "Essex",
+//     "Franklin",
+//     "Grand Isle",
+//     "Lamoille",
+//     "Orange",
+//     "Orleans",
+//     "Rutland",
+//     "Washington",
+//     "Windham",
+//     "Windsor"
+// ];

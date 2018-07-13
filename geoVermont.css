@@ -285,5 +285,11 @@ pre {
     visibility: hidden;
 }
 
+.dropdown-menu {
+    z-index: 1001;
+}
 
+ul {
+    text-decoration: none;
+}
 
