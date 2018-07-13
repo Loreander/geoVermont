@@ -12,9 +12,6 @@ var mymap = L.map('map').setView([43.873, -72.45715], 8);
 let vermontBorder = L.geoJson(border_data);
 
 
-
-document.getElementById('score').textContent = score;
-
 initialize();
 
 function initialize() {
@@ -23,6 +20,7 @@ function initialize() {
     mymap.setView([43.873, -72.45715], 8);
     vermontBorder.addTo(mymap)
     score = 20;
+    document.getElementById('score').textContent = score;
     document.getElementById('start').disabled=false;
     document.getElementById('guess').disabled=true;
     document.getElementById('quit').disabled=true;
@@ -33,8 +31,8 @@ function initialize() {
     mymap.keyboard.disable();
     mymap.dragging.disable();
     mymap.zoomControl.disable();
-   
 }
+
 // Code below is for 'easy mode'
 // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibG9yZWFuZGVyIiwiYSI6ImNqamV5aHI1cDRzYXkza29nZWYybW4xYXQifQ.klGOVR3KOTtMXsr5bDGorA'
 // , {
@@ -69,7 +67,6 @@ function displayInfo(mapInfo) {
     document.getElementById('latValue').textContent = latitude.toString().slice(0,7)
     document.getElementById('lonValue').textContent = longitude.toString().slice(0,8)
     document.getElementById('countyValue').textContent = mapInfo.address.county.slice(0,-7)
-    document.getElementById('townValue').textContent = mapInfo.address.town
 }
 
 function getCounty() {
@@ -108,8 +105,14 @@ function placemarker() {
     marker = L.marker([latitude,longitude]).addTo(mymap).bindPopup("Which County Am I In?").openPopup();
 }
 
-function decreaseScore(){
-    score -= 1;
+
+function decreaseScore(subtractAmount){
+    score -= subtractAmount;
+    $("#score").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+    $('#score').css({
+        "background-color": 'red',
+        "color" : "white"
+    }).delay(1000).removeProperty("background-color").removeProperty("color")
     setScore();
 }
 
@@ -118,19 +121,19 @@ function setScore() {
 }
 
 function moveRight(){
-    decreaseScore();
+    decreaseScore(1);
     longitude += .04;
     setMap();
 }
 
 function moveLeft() {
-    decreaseScore();
+    decreaseScore(1);
     longitude -= .04;
     setMap()
 }
 
 function moveDown() {
-    decreaseScore();
+    decreaseScore(1);
     latitude -= .024;
     setMap()
 }
