@@ -10,7 +10,7 @@ const lonMin = -71.5489;
 const lonMax = -73.3654;
 var mymap = L.map('map').setView([43.873, -72.45715], 8);
 let vermontBorder = L.geoJson(border_data);
-$('.leaflet-control-attribution').hide()
+
 
 
 document.getElementById('score').textContent = score;
@@ -18,6 +18,7 @@ document.getElementById('score').textContent = score;
 initialize();
 
 function initialize() {
+    $('.leaflet-control-attribution').hide()
     $('img').hide();
     mymap.setView([43.873, -72.45715], 8);
     vermontBorder.addTo(mymap)
