@@ -54,31 +54,30 @@ function startGame(){
     document.getElementById('guess').disabled=false;
     document.getElementById('quit').disabled=false;
     $('img').show();
+    if(marker != undefined){
+        marker.remove();
+    }
     getLatLon()
 }
 
 function quitGame(){
-    marker.remove();
     initialize();
     getCounty();
 }
 
 function displayInfo(mapInfo) {
-    document.getElementById('latValue').textContent = latitude
-    document.getElementById('lonValue').textContent = longitude
-    document.getElementById('countyValue').textContent = mapInfo.address.county
+    document.getElementById('latValue').textContent = latitude.toString().slice(0,7)
+    document.getElementById('lonValue').textContent = longitude.toString().slice(0,8)
+    document.getElementById('countyValue').textContent = mapInfo.address.county.slice(0,-7)
     document.getElementById('townValue').textContent = mapInfo.address.town
 }
 
 function getCounty() {
-    console.log('https://nominatim.openstreetmaps.org/reverse/?format=json&lat=' + latitude + '&lon=' + longitude)
     fetch('https://nominatim.openstreetmaps.org/reverse/?format=json&lat=' + latitude + '&lon=' + longitude)
        .then(function (response) {
-        console.log(response);
            return response.json();
        })
        .then(function (mapInfo) {
-        console.log(mapInfo);
            displayInfo(mapInfo)
        })
 }
@@ -87,8 +86,6 @@ function getLatLon(){
     latitude = getRandomNum(latMin,latMax)
     longitude = getRandomNum(lonMin,lonMax)
     let results = leafletPip.pointInLayer([longitude, latitude], vermontBorder);
-
-    console.log({results});
 
     if(results.length === 0){
         getLatLon()

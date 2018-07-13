@@ -262,8 +262,13 @@ button {
     position: absolute;
 }
 
+.outputs {
+    background-color: white;
+    border-radius: 10px;
+}
+
 p {
-    font-size: 70px;
+    font-size: 55px;
     text-align: center;
 }
 
@@ -278,6 +283,8 @@ pre {
     margin: auto;
     width: 75%;
     border-radius: 10px;
+    font-size: 30px;
+    vertical-align: middle;
 
 }
 
