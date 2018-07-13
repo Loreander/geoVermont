@@ -8,14 +8,17 @@ const latMin = 42.739;
 const latMax = 45.0065;
 const lonMin = -71.5489;
 const lonMax = -73.3654;
-var mymap = L.map('map')
+var mymap = L.map('map').setView([43.873, -72.45715], 8);
 let vermontBorder = L.geoJson(border_data);
+$('.leaflet-control-attribution').hide()
+
 
 document.getElementById('score').textContent = score;
 
 initialize();
 
 function initialize() {
+    $('img').hide();
     mymap.setView([43.873, -72.45715], 8);
     vermontBorder.addTo(mymap)
     score = 20;
@@ -29,8 +32,7 @@ function initialize() {
     mymap.keyboard.disable();
     mymap.dragging.disable();
     mymap.zoomControl.disable();
-    // $('.leaflet-control-attribution').hide()
-    $('img').hide();
+   
 }
 // Code below is for 'easy mode'
 // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibG9yZWFuZGVyIiwiYSI6ImNqamV5aHI1cDRzYXkza29nZWYybW4xYXQifQ.klGOVR3KOTtMXsr5bDGorA'
@@ -55,8 +57,8 @@ function startGame(){
 }
 
 function quitGame(){
-    initialize();
     marker.remove();
+    initialize();
     getCounty();
 }
 
