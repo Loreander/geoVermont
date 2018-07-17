@@ -108,12 +108,8 @@ function placemarker() {
 
 function decreaseScore(subtractAmount){
     score -= subtractAmount;
-    $("#score").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-    $('#score').css({
-        "background-color": 'red',
-        "color" : "white"
-    }).delay(1000).removeProperty("background-color").removeProperty("color")
     setScore();
+    $("#score").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
 }
 
 function setScore() {
