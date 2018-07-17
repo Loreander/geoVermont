@@ -293,5 +293,15 @@ pre {
     visibility: hidden;
 }
 
+.dropdown-menu {
+    z-index: 1001;
+    background-color: #286090;
+ }
+ 
+ ul {
+    list-style: none;
+    padding-left: 1rem;
+ }
+
 
 
