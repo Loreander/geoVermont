@@ -301,6 +301,12 @@ pre {
  ul {
     list-style: none;
     padding-left: 1rem;
+    font-size: 50px;
+ }
+
+ li a{
+    text-decoration: none;
+    color: white;
  }
 
 

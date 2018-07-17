@@ -4,26 +4,23 @@ let latitude;
 let longitude;
 let marker
 let score;
-const latMin = 42.739;
-const latMax = 45.0065;
-const lonMin = -71.5489;
-const lonMax = -73.3654;
-var mymap = L.map('map').setView([43.873, -72.45715], 8);
-let vermontBorder = L.geoJson(border_data);
+var mymap = L.map('map').setView([43.873, -72.45715], 8);;
 
+const vermontBorder = L.geoJson(border_data);
 
 initialize();
 
+
 function initialize() {
+    mymap.setView([43.873, -72.45715], 8);
     $('.leaflet-control-attribution').hide()
     $('img').hide();
-    mymap.setView([43.873, -72.45715], 8);
     vermontBorder.addTo(mymap)
     score = 20;
     document.getElementById('score').textContent = score;
-    document.getElementById('start').disabled=false;
-    document.getElementById('guess').disabled=true;
-    document.getElementById('quit').disabled=true;
+    buttonState('start', false)
+    buttonState('guess', true)
+    buttonState('quit', true)
     mymap.touchZoom.disable();
     mymap.doubleClickZoom.disable();
     mymap.scrollWheelZoom.disable();
@@ -42,20 +39,26 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
     accessToken: 'your.mapbox.access.token'
 }).addTo(mymap);
 
+function buttonState(button, state){
+    document.getElementById(button).disabled=state;
+}
+
 function startGame(){
-    document.getElementById('start').disabled=true;
-    document.getElementById('guess').disabled=false;
-    document.getElementById('quit').disabled=false;
+    buttonState('start', true)
+    buttonState('guess', false)
+    buttonState('quit', false)
     $('img').show();
     if(marker != undefined){
         marker.remove();
     }
+
     getLatLon()
+    fetchMapInfo((mapInfo)=>{mapInfo=mapInfo})
 }
 
 function quitGame(){
     initialize();
-    getCounty();
+    fetchMapInfo((mapInfo) => { displayInfo(mapInfo); });
 }
 
 function displayInfo(mapInfo) {
@@ -64,17 +67,23 @@ function displayInfo(mapInfo) {
     document.getElementById('countyValue').textContent = mapInfo.address.county.slice(0,-7)
 }
 
-function getCounty() {
+function fetchMapInfo(callback) {
     fetch('https://nominatim.openstreetmaps.org/reverse/?format=json&lat=' + latitude + '&lon=' + longitude)
        .then(function (response) {
            return response.json();
        })
        .then(function (mapInfo) {
-           displayInfo(mapInfo)
+           if (callback) {
+              callback(mapInfo)
+           }
        })
 }
 
 function getLatLon(){
+    const latMin = 42.739;
+    const latMax = 45.0065;
+    const lonMin = -71.5489;
+    const lonMax = -73.3654;
     latitude = getRandomNum(latMin,latMax)
     longitude = getRandomNum(lonMin,lonMax)
     let results = leafletPip.pointInLayer([longitude, latitude], vermontBorder);
