@@ -4,17 +4,16 @@ let latitude;
 let longitude;
 let marker
 let score;
+let currentCounty;
 var mymap = L.map('map').setView([43.873, -72.45715], 8);;
-
 const vermontBorder = L.geoJson(border_data);
 
 initialize();
 
-
 function initialize() {
-    mymap.setView([43.873, -72.45715], 8);
     $('.leaflet-control-attribution').hide()
     $('img').hide();
+    mymap.setView([43.873, -72.45715], 8);
     vermontBorder.addTo(mymap)
     score = 20;
     document.getElementById('score').textContent = score;
@@ -53,7 +52,8 @@ function startGame(){
     }
 
     getLatLon()
-    fetchMapInfo((mapInfo)=>{mapInfo=mapInfo})
+    fetchMapInfo((mapInfo) => { currentCounty = mapInfo.address.county.slice(0,-7), console.log(currentCounty)});
+
 }
 
 function quitGame(){
@@ -61,6 +61,18 @@ function quitGame(){
     fetchMapInfo((mapInfo) => { displayInfo(mapInfo); });
 }
 
+function countyCheck(guessedCounty){
+    fetchMapInfo((mapInfo)=>{currentCounty=mapInfo.address.county.slice(0,-7)})
+    if(currentCounty == guessedCounty){
+        console.log(currentCounty);
+        console.log(guessedCounty);
+        alert('You guessed correctly!');
+    } else {
+        console.log(currentCounty);
+        console.log(guessedCounty);
+        alert('You guessed incorrectly...');    
+    }
+}
 function displayInfo(mapInfo) {
     document.getElementById('latValue').textContent = latitude.toString().slice(0,7)
     document.getElementById('lonValue').textContent = longitude.toString().slice(0,8)
